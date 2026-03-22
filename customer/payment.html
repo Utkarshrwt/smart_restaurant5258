@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Payment</title>
+    <link rel="stylesheet" href="payment.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Secure Payment</h2>
+    <p class="subtitle">Complete your restaurant order</p>
+
+    <h3 id="totalAmount">Loading Total...</h3>
+
+    <div class="tabs">
+        <button class="tab active" onclick="showUPI()">UPI</button>
+        <button class="tab" onclick="showCard()">Card</button>
+    </div>
+
+    <div id="upiForm">
+        <input type="text" id="upiId" placeholder="Enter UPI ID (example@upi)">
+    </div>
+
+    <div id="cardForm" style="display:none">
+        <input type="text" id="cardNumber" placeholder="Card Number">
+        <div class="row">
+            <input type="text" id="expiry" placeholder="MM/YY">
+            <input type="password" id="cvv" placeholder="CVV">
+        </div>
+    </div>
+
+    <button class="pay-btn" onclick="processPayment()">Pay Now</button>
+</div>
+
+<script type="module" src="./payment.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Invoice - Smart Restaurant</title>
+    <link rel="stylesheet" href="invoice.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <div class="invoice-wrapper">
+        <div class="actions no-print">
+            <button onclick="window.location.href='menu.html'">← Back to Menu</button>
+            <button class="download-btn" onclick="downloadInvoice()">Download PDF</button>
+        </div>
+
+        <div id="invoiceContent" class="receipt-card">
+            <header>
+                <h1>SMART RESTAURANT</h1>
+                <p>Freshness in every bite!</p>
+            </header>
+
+            <div class="bill-info">
+                <div>
+                    <p><strong>Bill To:</strong> <span id="custName">Guest</span></p>
+                    <p><strong>Table:</strong> <span id="custTable">--</span></p>
+                </div>
+                <div style="text-align: right;">
+                    <p><strong>Date:</strong> <span id="billDate">--</span></p>
+                    <p><strong>ID:</strong> <span id="sessId">--</span></p>
+                </div>
+            </div>
+
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody id="invoiceItems">
+                    </tbody>
+            </table>
+
+            <div class="totals">
+                <p>Subtotal: <span id="subtotal">₹0</span></p>
+                <p>GST (5%): <span id="gst">₹0</span></p>
+                <hr>
+                <h3>Grand Total: <span id="grandTotal">₹0</span></h3>
+            </div>
+
+            <footer>
+                <p>Thank you for dining with us!</p>
+                <p>Visit again soon.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script type="module" src="invoice.js"></script>
+</body>
+</html>

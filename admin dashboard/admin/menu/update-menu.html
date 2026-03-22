@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Menu Management</title>
+  <link rel="stylesheet" href="update-menu.css">
+</head>
+<body>
+
+<div class="container">
+
+  <h2>Menu Management</h2>
+
+  <!-- ACTION BUTTONS -->
+  <div class="action-buttons">
+    <button onclick="showSection('add')">Add</button>
+    <button onclick="showSection('update')">Update</button>
+    <button onclick="showSection('delete')">Delete</button>
+  </div>
+
+  <!-- ADD FORM -->
+  <form id="addForm" class="form-section">
+    <h3>Add New Item</h3>
+
+    <input type="text" id="addFoodId" placeholder="Food ID" required>
+
+    <!-- CATEGORY -->
+    <select id="addCategory" required>
+      <option value="">Select Category</option>
+      <option value="Starters">Starters</option>
+      <option value="Main Course - Veg">Main Course - Veg</option>
+      <option value="Main Course - Non-Veg">Main Course - Non-Veg</option>
+      <option value="Breads">Breads</option>
+      <option value="Rice & Biryani">Rice & Biryani</option>
+      <option value="Fast Food">Fast Food</option>
+      <option value="Desserts">Desserts</option>
+      <option value="Beverage">Beverage</option>
+    </select>
+
+    <input type="text" id="addName" placeholder="Food Name" required>
+    <textarea id="addIngredients" placeholder="Ingredients"></textarea>
+    <input type="number" id="addPrice" placeholder="Price" required>
+    <input type="file" id="addImage" accept="image/*" required>
+
+    <button type="submit">Add Item</button>
+  </form>
+
+  <!-- UPDATE FORM -->
+  <form id="updateForm" class="form-section hidden">
+    <h3>Update Item</h3>
+
+    <input type="text" id="updateFoodId" placeholder="Food ID" required>
+
+    <!-- CATEGORY -->
+    <select id="updateCategory">
+      <option value="">Change Category (Optional)</option>
+      <option value="Starters">Starters</option>
+      <option value="Main Course - Veg">Main Course - Veg</option>
+      <option value="Main Course - Non-Veg">Main Course - Non-Veg</option>
+      <option value="Breads">Breads</option>
+      <option value="Rice & Biryani">Rice & Biryani</option>
+      <option value="Fast Food">Fast Food</option>
+      <option value="Desserts">Desserts</option>
+      <option value="Beverage">Beverage</option>
+    </select>
+
+    <input type="text" id="updateName" placeholder="New Name">
+    <textarea id="updateIngredients" placeholder="New Ingredients"></textarea>
+    <input type="number" id="updatePrice" placeholder="New Price">
+    <input type="file" id="updateImage" accept="image/*">
+
+    <button type="submit">Update Item</button>
+  </form>
+
+  <!-- DELETE FORM -->
+  <form id="deleteForm" class="form-section hidden">
+    <h3>Delete Item</h3>
+
+    <input type="text" id="deleteFoodId" placeholder="Food ID" required>
+    <button type="submit" class="delete-btn">Delete Item</button>
+  </form>
+
+</div>
+
+<script type="module" src="update-menu.js"></script>
+
+</body>
+</html>

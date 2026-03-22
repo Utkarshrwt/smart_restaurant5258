@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard | Smart Restaurant</title>
+<link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<!-- HEADER -->
+<header class="header">
+<h1>Smart Restaurant</h1>
+<p class="subtitle">Dashboard</p>
+</header>
+
+
+<!-- MAIN AREA -->
+<div class="main">
+
+
+<!-- LEFT SIDE (Kitchen Orders) -->
+
+<section class="recent-orders">
+
+<h2>Kitchen Orders</h2>
+
+<div class="order-columns">
+
+<div class="order-col">
+<h3>New</h3>
+<div id="newOrders"></div>
+</div>
+
+<div class="order-col">
+<h3>Preparing</h3>
+<div id="preparingOrders"></div>
+</div>
+
+<div class="order-col">
+<h3>Completed</h3>
+<div id="completedOrders"></div>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- RIGHT SIDE CARDS -->
+
+<aside class="actions">
+
+<div class="card action-card" onclick="goToOrders()">
+<h3>New Orders</h3>
+</div>
+
+<div class="card action-card" onclick="goToHistory()">
+<h3>Order History</h3>
+</div>
+
+<div class="card action-card" id="manageMenuCard" onclick="goToMenu()">
+<h3>Manage Menu</h3>
+</div>
+
+<div class="card action-card" id="viewMenuCard" onclick="goToView_menu()">
+<h3>View Menu</h3>
+</div>
+
+<div class="card action-card" id="reportsCard" onclick="goToReports()">
+<h3>Reports</h3>
+</div>
+
+<div class="card action-card" id="employeeCard" onclick="goToEmployees()">
+<h3>Employee Info</h3>
+</div>
+
+<div class="card action-card" id="staffCard" onclick="goToStaff()">
+<h3>Staff Dashboard</h3>
+</div>
+
+<div class="card action-card" id="paymentCard" onclick="goToPayment()">
+<h3>Payment Info</h3>
+</div>
+
+<div class="card action-card" id="accessCard" onclick="goToAccessControl()">
+<h3>Access Control</h3>
+</div>
+
+<div class="card action-card" id="attendanceCard" onclick="goToAttendance()">
+<h3>Attendance</h3>
+</div>
+
+</aside>
+
+</div>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+<button class="logout-btn" onclick="logout()">Logout</button>
+</footer>
+
+</div>
+
+<script  type="module" src="admin.js"></script>
+
+</body>
+</html>
