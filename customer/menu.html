@@ -8,25 +8,28 @@
 </head>
 <body>
 
-    <!-- Overlay for Sidebar -->
     <div id="blackOverlay" class="hidden-layer" onclick="openCloseMenu()"></div>
 
-    <!-- Header -->
     <header class="main-header">
         <div class="header-left">
             <span class="menu-button" onclick="openCloseMenu()">☰</span>
             <h2 class="brand-name">Smart Restaurant</h2>
         </div>
         <div class="header-right">
+            <select id="priceFilter" class="filter-dropdown">
+                <option value="all">All Prices</option>
+                <option value="below100">Below ₹100</option>
+                <option value="100-300">₹100 - ₹300</option>
+                <option value="300-600">₹300 - ₹600</option>
+                <option value="above600">Above ₹600</option>
+            </select>
             <input type="text" id="searchBar" placeholder="Search food...">
             <button class="cart-button" onclick="openCart()">🛒</button>
         </div>
     </header>
 
-    <!-- Category Scroll -->
     <nav class="category-scroll" id="categoryContainer"></nav>
 
-    <!-- Sidebar -->
     <div id="sideMenu" class="side-panel">
         <div class="side-header">
             <h3>User Menu</h3>
@@ -39,15 +42,12 @@
         </ul>
     </div>
 
-    <!-- Main Food Grid -->
     <div class="main-container">
         <div id="foodGrid" class="food-layout"></div>
     </div>
 
-    <!-- Floating Invoice Button -->
     <button class="invoice-float-btn" onclick="openInvoice()">🧾 Invoice</button>
 
-    <!-- Invoice Modal -->
     <div id="invoiceModal" class="hidden-layer">
         <div class="invoice-card">
             <span class="close-invoice" onclick="closeInvoice()">&times;</span>
@@ -77,7 +77,6 @@
         </div>
     </div>
 
-    <!-- JS -->
     <script type="module" src="menu.js"></script>
 </body>
 </html>
