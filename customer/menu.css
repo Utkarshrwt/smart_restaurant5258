@@ -28,16 +28,26 @@ body {
 .brand-name { color: #ff7a00; font-size: 1.4rem; font-weight: bold; }
 .menu-button { font-size: 26px; cursor: pointer; color: #ff7a00; }
 
-.header-right { display: flex; align-items: center; gap: 15px; }
-#searchBar { 
+.header-right { display: flex; align-items: center; gap: 10px; }
+
+#searchBar, .filter-dropdown { 
     padding: 10px 18px; 
     border-radius: 25px; 
     border: none; 
     outline: none; 
-    width: 200px;
     transition: 0.3s;
 }
-#searchBar:focus { width: 250px; box-shadow: 0 0 8px #ff7a00; }
+
+#searchBar { width: 180px; }
+#searchBar:focus { width: 220px; box-shadow: 0 0 8px #ff7a00; }
+
+.filter-dropdown {
+    background: white;
+    cursor: pointer;
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
 
 .cart-button { 
     background: #ff7a00; 
@@ -250,30 +260,16 @@ body {
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-    .main-header { flex-direction: column; align-items: flex-start; gap: 10px; padding: 10px 15px; }
-    #searchBar { width: 100%; max-width: 300px; }
-    .header-right { width: 100%; justify-content: space-between; }
-    .food-layout { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-    .food-box img { height: 150px; }
-    .food-info { padding: 15px; }
+@media (max-width: 900px) {
+    .header-right { flex-direction: row; gap: 8px; }
+    #searchBar { width: 120px; }
+    .filter-dropdown { padding: 8px 10px; font-size: 12px; }
 }
 
-@media (max-width: 480px) {
-    .main-header { padding: 8px 12px; }
-    .brand-name { font-size: 1.2rem; }
-    .menu-button { font-size: 22px; }
-    .category-scroll { padding: 10px; gap: 10px; }
-    .cat-item { min-width: 100px; height: 60px; font-size: 13px; }
-    .food-layout { grid-template-columns: 1fr; gap: 12px; }
-    .food-box img { height: 140px; }
-    .food-info { padding: 12px; }
-    .food-name { font-size: 1rem; }
-    .food-details { font-size: 12px; }
-    .food-price { font-size: 1.1rem; }
-    .add-btn { padding: 8px; font-size: 13px; }
-    .invoice-float-btn { padding: 12px 18px; font-size: 14px; bottom: 15px; right: 15px; }
-    .invoice-card { max-width: 95%; padding: 20px; }
-    .invoice-table th, .invoice-table td { font-size: 12px; padding: 8px 5px; }
-    .print-btn { padding: 12px; font-size: 14px; }
+@media (max-width: 768px) {
+    .main-header { flex-direction: column; align-items: flex-start; gap: 10px; padding: 10px 15px; }
+    .header-right { width: 100%; justify-content: space-between; }
+    #searchBar { width: 45%; }
+    .filter-dropdown { width: 45%; }
+    .food-layout { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
 }
