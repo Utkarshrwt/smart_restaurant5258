@@ -1,0 +1,74 @@
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f5f5f5;
+    padding: 30px;
+}
+
+.container {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.menu-card {
+    background: #ffffff;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border-left: 4px solid #ff7a00;
+}
+
+.menu-details {
+    margin-bottom: 10px;
+}
+
+.toggle-btn {
+    padding: 12px 22px;   /* bigger button */
+    border: none;
+    border-radius: 8px;
+    background: #ff7a00;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;      /* larger text */
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.toggle-btn:hover {
+    background: #474b7e;
+    transform: scale(1.05);
+}
+.menu-card h4 {
+    margin-bottom: 5px;
+}
+
+
+
+
+
+.top-bar {
+    margin-bottom: 15px;
+}
+
+.back-btn {
+    padding: 8px 18px;
+    border: none;
+    background: #2f2f2f;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.back-btn:hover {
+    background: #444;
+}
+.menu-details p {
+    margin-bottom: 4px;
+    font-size: 16px;
+}

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Management | Smart Restaurant</title>
+    <link rel="stylesheet" href="management.css">
+    <style>
+        .page-container { padding: 20px; max-width: 1200px; margin: auto; display: block !important; }
+        .mgmt-card { 
+            background: white; padding: 25px; border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 30px;
+            position: relative !important; height: auto !important;
+        }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .salary-badge { background: #e8f5e9; color: #2e7d32; padding: 5px 10px; border-radius: 4px; font-weight: bold; border: 1px solid #2ecc71; }
+        
+        /* Modal Styles */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
+        .modal-content { background: white; margin: 5% auto; padding: 30px; width: 40%; border-radius: 12px; position: relative; animation: slideDown 0.3s ease; }
+        @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .detail-row { margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .detail-row b { color: #555; width: 130px; display: inline-block; }
+    </style>
+</head>
+<body>
+
+<div class="page-container">
+    <button onclick="location.href='admin.html'" class="btn" style="background:#333; color:white; margin-bottom:20px; cursor:pointer;">← Back to Dashboard</button>
+
+    <div class="mgmt-card">
+        <h2>Register New Employee</h2>
+        <div class="form-grid">
+            <input type="text" id="name" placeholder="Full Name">
+            <input type="text" id="role" placeholder="Designation (e.g. Waiter)">
+            <input type="number" id="salary" placeholder="Salary/Day (₹)">
+            <input type="tel" id="phone" placeholder="Phone Number">
+            <input type="email" id="email" placeholder="Email Address">
+            <input type="date" id="joinDate" title="Joining Date">
+            <input type="text" id="address" placeholder="Residential Address" style="grid-column: span 2;">
+            <button class="btn" onclick="registerEmployee()" style="background:#2ecc71; color:white; font-weight:bold; cursor:pointer;">Register Staff</button>
+        </div>
+    </div>
+
+    <div class="mgmt-card">
+        <h2>Active Staff & Monthly Payroll (<span id="currentMonthName"></span>)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee (ID)</th>
+                    <th>Rate/Day</th>
+                    <th>Days Present</th>
+                    <th>Total Salary</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="activeList"></tbody>
+        </table>
+    </div>
+
+    <div class="mgmt-card">
+        <h2 style="border-left-color: #95a5a6;">Past Staff Records</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Former Role</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="pastList"></tbody>
+        </table>
+    </div>
+</div>
+
+<div id="viewModal" class="modal">
+    <div class="modal-content">
+        <h2 id="vName" style="color: #ff7a00; margin-top:0;">Employee Details</h2>
+        <div class="detail-row"><b>Designation:</b> <span id="vRole"></span></div>
+        <div class="detail-row"><b>Salary/Day:</b> ₹<span id="vSalary"></span></div>
+        <div class="detail-row"><b>Phone:</b> <span id="vPhone"></span></div>
+        <div class="detail-row"><b>Email:</b> <span id="vEmail"></span></div>
+        <div class="detail-row"><b>Joined On:</b> <span id="vDate"></span></div>
+        <div class="detail-row"><b>Address:</b> <span id="vAddress"></span></div>
+        <button onclick="document.getElementById('viewModal').style.display='none'" class="btn" style="background:#3498db; color:white; width:100%; margin-top:10px; cursor:pointer;">Close</button>
+    </div>
+</div>
+
+<script type="module">
+    import { db } from "../firebase/firebase.js";
+    import { collection, onSnapshot, doc, setDoc, updateDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const currentMonth = new Date().toISOString().slice(0, 7);
+    document.getElementById("currentMonthName").innerText = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
+
+    window.registerEmployee = async () => {
+        const name = document.getElementById("name").value;
+        const role = document.getElementById("role").value;
+        const salary = document.getElementById("salary").value;
+        const phone = document.getElementById("phone").value;
+        if(!name || !salary || !phone) return alert("Fill Name, Salary, and Phone!");
+
+        await setDoc(doc(collection(db, "employees")), {
+            name, role, salaryPerDay: Number(salary), 
+            phone, email: document.getElementById("email").value,
+            joinDate: document.getElementById("joinDate").value,
+            address: document.getElementById("address").value,
+            status: "active"
+        });
+        alert("Employee Registered!");
+        location.reload();
+    };
+
+    onSnapshot(collection(db, "employees"), (snapshot) => {
+        const activeList = document.getElementById("activeList");
+        const pastList = document.getElementById("pastList");
+        activeList.innerHTML = ""; pastList.innerHTML = "";
+
+        snapshot.forEach(async (docSnap) => {
+            const emp = docSnap.data();
+            const id = docSnap.id;
+            const empStr = JSON.stringify({...emp, id}).replace(/'/g, "&apos;");
+
+            if(emp.status === "active") {
+                const q = query(collection(db, "attendance"), where("empId", "==", id), where("month", "==", currentMonth), where("status", "==", "Present"));
+                const attSnap = await getDocs(q);
+                const daysPresent = attSnap.size;
+
+                activeList.innerHTML += `
+                    <tr>
+                        <td><b>${emp.name}</b><br><small style="color:gray">ID: ${id.slice(-5)}</small></td>
+                        <td>₹${emp.salaryPerDay}</td>
+                        <td>${daysPresent} Days</td>
+                        <td><span class="salary-badge">₹${daysPresent * emp.salaryPerDay}</span></td>
+                        <td>
+                            <button class="btn" style="background:#3498db; color:white;" onclick='openModal(${empStr})'>View More</button>
+                            <button class="btn" style="background:#e74c3c; color:white;" onclick="toggleStatus('${id}', 'past')">Remove</button>
+                        </td>
+                    </tr>`;
+            } else {
+                pastList.innerHTML += `
+                    <tr>
+                        <td>${emp.name}</td><td>${emp.role}</td>
+                        <td><span style="color:red; font-weight:bold;">Resigned</span></td>
+                        <td>
+                            <button class="btn" style="background:#3498db; color:white;" onclick='openModal(${empStr})'>View More</button>
+                            <button class="btn" style="background:#2ecc71; color:white;" onclick="toggleStatus('${id}', 'active')">Re-join</button>
+                        </td>
+                    </tr>`;
+            }
+        });
+    });
+
+    window.openModal = (emp) => {
+        document.getElementById("vName").innerText = emp.name;
+        document.getElementById("vRole").innerText = emp.role;
+        document.getElementById("vSalary").innerText = emp.salaryPerDay;
+        document.getElementById("vPhone").innerText = emp.phone || "N/A";
+        document.getElementById("vEmail").innerText = emp.email || "N/A";
+        document.getElementById("vDate").innerText = emp.joinDate || "N/A";
+        document.getElementById("vAddress").innerText = emp.address || "N/A";
+        document.getElementById("viewModal").style.display = "block";
+    };
+
+    window.toggleStatus = async (id, status) => {
+        if(confirm(`Change status to ${status}?`)) await updateDoc(doc(db, "employees", id), { status });
+    };
+</script>
+</body>
+</html>

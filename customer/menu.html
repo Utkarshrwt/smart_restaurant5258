@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Restaurant</title>
+    <link rel="stylesheet" href="menu.css">
+</head>
+<body>
+
+    <!-- Overlay for Sidebar -->
+    <div id="blackOverlay" class="hidden-layer" onclick="openCloseMenu()"></div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-left">
+            <span class="menu-button" onclick="openCloseMenu()">☰</span>
+            <h2 class="brand-name">Smart Restaurant</h2>
+        </div>
+        <div class="header-right">
+            <input type="text" id="searchBar" placeholder="Search food...">
+            <button class="cart-button" onclick="openCart()">🛒</button>
+        </div>
+    </header>
+
+    <!-- Category Scroll -->
+    <nav class="category-scroll" id="categoryContainer"></nav>
+
+    <!-- Sidebar -->
+    <div id="sideMenu" class="side-panel">
+        <div class="side-header">
+            <h3>User Menu</h3>
+            <span class="close-x" onclick="openCloseMenu()">×</span>
+        </div>
+        <ul class="side-list">
+            <li onclick="goToMyOrders()">My Orders</li>
+            <li onclick="openInvoice()">Invoice</li>
+            <li onclick="goToTrack()">Track Order</li>
+        </ul>
+    </div>
+
+    <!-- Main Food Grid -->
+    <div class="main-container">
+        <div id="foodGrid" class="food-layout"></div>
+    </div>
+
+    <!-- Floating Invoice Button -->
+    <button class="invoice-float-btn" onclick="openInvoice()">🧾 Invoice</button>
+
+    <!-- Invoice Modal -->
+    <div id="invoiceModal" class="hidden-layer">
+        <div class="invoice-card">
+            <span class="close-invoice" onclick="closeInvoice()">&times;</span>
+            <div id="invoiceCaptureArea">
+                <h2 class="brand-name">SMART RESTAURANT</h2>
+                <p id="modalTableNumber">Table: --</p>
+                <p id="modalBillDate">Date: --</p>
+                <hr class="dashed-line">
+                <table class="invoice-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modalInvoiceItems"></tbody>
+                </table>
+                <hr class="dashed-line">
+                <div class="invoice-footer">
+                    <p id="modalSubTotal">Subtotal: ₹0</p>
+                    <p id="modalGst">GST (5%): ₹0</p>
+                    <h3 id="modalGrandTotal">Grand Total: ₹0</h3>
+                </div>
+            </div>
+            <button class="print-btn" onclick="window.print()">Print Receipt</button>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script type="module" src="menu.js"></script>
+</body>
+</html>

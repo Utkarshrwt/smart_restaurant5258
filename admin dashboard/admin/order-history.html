@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Analytics | Smart Restaurant</title>
+    <link rel="stylesheet" href="order-history.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="dashboard-container">
+    <header class="db-header">
+        <div class="header-text">
+            <h1>Order History</h1>
+            <p>Track and manage your restaurant's sales performance.</p>
+        </div>
+        <button onclick="location.href='admin.html'" class="back-btn">Return to Dashboard</button>
+    </header>
+
+    <section class="stats-bar">
+        <div class="stat-item">
+            <span class="stat-label">Total Orders</span>
+            <h2 id="statCount">0</h2>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Revenue Generated</span>
+            <h2 id="statRevenue" class="revenue-text">₹0</h2>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Average Order</span>
+            <h2 id="statAvg">₹0</h2>
+        </div>
+    </section>
+
+    <div class="controls-card">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search by Order ID, Name, or Phone..." onkeyup="filterOrders()">
+        </div>
+        <div class="filter-group">
+            <input type="date" id="dateFilter" class="styled-date" onchange="filterOrders()">
+            <select id="periodFilter" class="styled-select" onchange="filterOrders()">
+                <option value="all">Lifetime History</option>
+                <option value="today">Today's Sales</option>
+                <option value="month">Monthly Overview</option>
+            </select>
+            <button onclick="resetFilters()" class="reset-btn">Reset Filters</button>
+        </div>
+    </div>
+
+    <div id="historyList" class="order-cards-container">
+        </div>
+</div>
+
+<div id="orderModal" class="modal-overlay" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h2 id="modalOrderId">Order Summary</h2>
+            <button onclick="closeModal()" class="close-btn">&times;</button>
+        </div>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
+<script type="module" src="order-history.js"></script>
+</body>
+</html>

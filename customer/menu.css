@@ -1,0 +1,279 @@
+/* ===== GENERAL RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    overflow-x: hidden;
+}
+
+/* ===== HEADER ===== */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background-color: #1a1a1a;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1001;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.brand-name { color: #ff7a00; font-size: 1.4rem; font-weight: bold; }
+.menu-button { font-size: 26px; cursor: pointer; color: #ff7a00; }
+
+.header-right { display: flex; align-items: center; gap: 15px; }
+#searchBar { 
+    padding: 10px 18px; 
+    border-radius: 25px; 
+    border: none; 
+    outline: none; 
+    width: 200px;
+    transition: 0.3s;
+}
+#searchBar:focus { width: 250px; box-shadow: 0 0 8px #ff7a00; }
+
+.cart-button { 
+    background: #ff7a00; 
+    border: none; 
+    padding: 10px; 
+    border-radius: 50%; 
+    cursor: pointer; 
+    color: white;
+    transition: 0.3s;
+}
+.cart-button:hover { transform: scale(1.1); background: #e66e00; }
+
+/* ===== CATEGORY BAR ===== */
+.category-scroll {
+    display: flex;
+    gap: 15px;
+    padding: 15px 20px;
+    background: white;
+    overflow-x: auto;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 55px;
+    z-index: 1000;
+    -webkit-overflow-scrolling: touch;
+}
+.category-scroll::-webkit-scrollbar { display: none; }
+
+.cat-item {
+    min-width: 120px;
+    height: 65px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.cat-item:hover { transform: translateY(-3px); }
+.cat-item span { position: relative; z-index: 2; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
+.cat-item::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
+
+/* ===== SIDEBAR ===== */
+.side-panel {
+    position: fixed;
+    left: -280px;
+    top: 0;
+    width: 280px;
+    height: 100%;
+    background: white;
+    z-index: 2000;
+    transition: 0.4s ease;
+    padding: 25px;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+}
+.side-panel.open { left: 0; }
+
+.side-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 30px; 
+    border-bottom: 2px solid #ff7a00; 
+    padding-bottom: 10px; 
+}
+.side-header h3 { color: #1a1a1a; }
+.close-x { font-size: 30px; cursor: pointer; color: #666; }
+
+.side-list li { 
+    list-style: none; 
+    padding: 15px 20px; 
+    cursor: pointer; 
+    border-radius: 8px; 
+    transition: 0.3s; 
+    margin-bottom: 8px; 
+    color: #333; 
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+.side-list li:hover { background: #ff7a00; color: white !important; padding-left: 30px; box-shadow: 0 4px 10px rgba(255,122,0,0.3); }
+
+/* ===== FOOD GRID ===== */
+.main-container { padding: 25px; max-width: 1200px; margin: 0 auto; }
+.food-layout { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+    gap: 25px; 
+}
+
+.food-box { 
+    background: white; 
+    border-radius: 20px; 
+    overflow: hidden; 
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05); 
+    transition: 0.3s; 
+    border: 1px solid #eee; 
+    display: flex; 
+    flex-direction: column; 
+}
+.food-box:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.1); }
+.food-box img { width: 100%; height: 180px; object-fit: cover; }
+
+.food-info { padding: 20px; flex-grow: 1; }
+
+.badge {
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+.green-badge { background-color: #e8f5e9; color: #2e7d32; }
+.red-badge { background-color: #ffebee; color: #c62828; }
+
+.food-name { font-size: 1.2rem; margin-bottom: 8px; color: #1a1a1a; }
+.food-details { font-size: 14px; color: #666; margin-bottom: 12px; height: 40px; overflow: hidden; }
+.food-price { font-size: 1.3rem; font-weight: 700; color: #ff7a00; }
+
+.footer-section { padding: 20px; padding-top: 0; }
+.add-btn {
+    width: 100%;
+    padding: 12px;
+    background: #ff7a00;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.add-btn:hover:not(:disabled) { background: #e66e00; transform: scale(1.02); }
+.add-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+/* ===== INVOICE MODAL ===== */
+.hidden-layer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+}
+.hidden-layer.active { display: flex !important; }
+
+.invoice-card {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 30px;
+    border-radius: 15px;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    color: #333;
+}
+
+.close-invoice { position: absolute; right: 20px; top: 15px; font-size: 30px; cursor: pointer; color: #999; }
+
+.invoice-table { width: 100%; margin: 20px 0; border-collapse: collapse; }
+.invoice-table th { text-align: left; border-bottom: 2px solid #f0f0f0; padding: 10px 5px; font-size: 14px; }
+.invoice-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; font-size: 15px; }
+
+.invoice-footer { text-align: right; margin-top: 20px; }
+.invoice-footer p { font-size: 14px; margin-bottom: 5px; }
+.invoice-footer h3 { color: #1a1a1a; margin-top: 10px; }
+
+.print-btn { width: 100%; padding: 14px; background: #28a745; color: white; border: none; border-radius: 10px; font-weight: bold; margin-top: 20px; cursor: pointer; transition: 0.3s; }
+.print-btn:hover { background: #218838; }
+
+/* ===== FLOATING INVOICE BUTTON ===== */
+.invoice-float-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #ff7a00;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 8px 20px rgba(255, 122, 0, 0.4);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+.invoice-float-btn:hover { transform: scale(1.05); background: #e66e00; }
+
+/* ===== TOAST ===== */
+.toast-msg {
+    animation: fadeInOut 1.5s ease;
+}
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, 20px); }
+    20% { opacity: 1; transform: translate(-50%, 0); }
+    80% { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -20px); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .main-header { flex-direction: column; align-items: flex-start; gap: 10px; padding: 10px 15px; }
+    #searchBar { width: 100%; max-width: 300px; }
+    .header-right { width: 100%; justify-content: space-between; }
+    .food-layout { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+    .food-box img { height: 150px; }
+    .food-info { padding: 15px; }
+}
+
+@media (max-width: 480px) {
+    .main-header { padding: 8px 12px; }
+    .brand-name { font-size: 1.2rem; }
+    .menu-button { font-size: 22px; }
+    .category-scroll { padding: 10px; gap: 10px; }
+    .cat-item { min-width: 100px; height: 60px; font-size: 13px; }
+    .food-layout { grid-template-columns: 1fr; gap: 12px; }
+    .food-box img { height: 140px; }
+    .food-info { padding: 12px; }
+    .food-name { font-size: 1rem; }
+    .food-details { font-size: 12px; }
+    .food-price { font-size: 1.1rem; }
+    .add-btn { padding: 8px; font-size: 13px; }
+    .invoice-float-btn { padding: 12px 18px; font-size: 14px; bottom: 15px; right: 15px; }
+    .invoice-card { max-width: 95%; padding: 20px; }
+    .invoice-table th, .invoice-table td { font-size: 12px; padding: 8px 5px; }
+    .print-btn { padding: 12px; font-size: 14px; }
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details - Smart Restaurant</title>
+    <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+
+    <div class="container">
+        <header class="checkout-header">
+            <button class="back-btn" onclick="history.back()">← Back</button>
+            <h2>Customer Details</h2>
+        </header>
+
+        <div class="form">
+            <div class="input-group">
+                <label>Name</label>
+                <input type="text" id="name" placeholder="Enter your name">
+            </div>
+            <div class="input-group">
+                <label>Phone Number</label>
+                <input type="tel" id="phone" placeholder="Enter mobile number">
+            </div>
+            <div class="input-group">
+                <label>Table Number</label>
+                <input type="number" id="table" placeholder="e.g. 5">
+            </div>
+        </div>
+
+        <hr>
+
+        <h3>Order Summary</h3>
+        <div id="orderSummary" class="summary-list">
+            <!-- Order items will be dynamically inserted here -->
+        </div>
+
+        <div class="total-bar">
+            <span>Total Payable:</span>
+            <span id="totalPrice">₹0</span>
+        </div>
+
+        <button class="pay-btn" onclick="proceedPayment()">Confirm & Proceed</button>
+    </div>
+
+    <script type="module" src="checkout.js"></script>
+</body>
+</html>

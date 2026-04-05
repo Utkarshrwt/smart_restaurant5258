@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    /* Background: Darkened restaurant image for that "Late Night" vibe */
+    background: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.95)), 
+                url('https://images.unsplash.com/photo-1550966841-3ee323357223?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-card {
+    /* Semi-transparent dark card (Glassmorphism) */
+    background: rgba(30, 30, 30, 0.8);
+    backdrop-filter: blur(10px);
+    width: 100%;
+    max-width: 400px;
+    padding: 50px 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    text-align: center;
+}
+
+.login-card h1 {
+    color: #ffffff;
+    font-size: 30px;
+    margin-bottom: 8px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.login-card h3 {
+    color: #ff7a00; /* Subtle orange accent for the restaurant vibe */
+    margin-bottom: 35px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Simple & Clean Inputs */
+.login-card input {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    transition: 0.3s;
+}
+
+.login-card input:focus {
+    outline: none;
+    border-color: #ff7a00;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.login-card input::placeholder {
+    color: #888;
+}
+
+/* Bold Action Button */
+.login-card button {
+    width: 100%;
+    padding: 15px;
+    background: #ff7a00;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.login-card button:hover {
+    background: #e66e00;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 122, 0, 0.3);
+}
+
+#error {
+    margin-top: 20px;
+    color: #ff4d4d;
+    font-size: 14px;
+    font-weight: 500;
+}

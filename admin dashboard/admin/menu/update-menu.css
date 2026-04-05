@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: #ffffff;
+  padding: 30px;
+  width: 450px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid #ddd;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #330851;
+  font-size: 24px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  gap: 10px;
+}
+
+.action-buttons button {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid #330851;
+  border-radius: 8px;
+  background: white;
+  color: #330851;
+  transition: 0.2s;
+}
+
+.action-buttons button:hover {
+  background: #330851;
+  color: white;
+}
+
+/* Form Sections */
+.form-section {
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+/* Input Styling */
+form input,
+form select,
+form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-size: 14px;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  border-color: #330851;
+  outline: none;
+  background-color: #f9f9ff;
+}
+
+form textarea {
+  height: 80px;
+}
+
+/* Submit Buttons */
+button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: #330851;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background: #23063a;
+}
+
+/* Delete Specific Button */
+.delete-btn {
+  background: #e74c3c !important;
+}
+
+.delete-btn:hover {
+  background: #c0392b !important;
+}
+
+/* File Input */
+input[type="file"] {
+  padding: 8px;
+  border: 1px dashed #bbb;
+  cursor: pointer;
+}

@@ -1,0 +1,180 @@
+/* Base styles */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #fff5ee, #ffe8d6);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background: white;
+    padding: 40px;
+    border-radius: 18px;
+    width: 360px;
+    max-width: 95%;
+    text-align: center;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+}
+
+h2 {
+    margin-top: 20px;
+    color: #333;
+}
+
+.message {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #555;
+}
+
+.sub-message {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+/* Order info box */
+.order-info {
+    background: #fff7f2;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+.menu-btn, .track-btn {
+    width: 100%;
+    padding: 14px;
+    background: #ff6b00;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-bottom: 10px;
+}
+
+.menu-btn:hover, .track-btn:hover {
+    background: #ff8126;
+    transform: scale(1.03);
+}
+
+/* Checkmark animation */
+.checkmark-circle {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    display: inline-block;
+}
+
+.background {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #28c76f;
+}
+
+.checkmark {
+    border-radius: 5px;
+}
+
+.checkmark.draw:after {
+    animation-delay: 100ms;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-name: checkmark;
+    transform: scaleX(-1) rotate(135deg);
+    animation-fill-mode: forwards;
+}
+
+.checkmark:after {
+    opacity: 0;
+    height: 40px;
+    width: 20px;
+    transform-origin: left top;
+    border-right: 6px solid white;
+    border-top: 6px solid white;
+    content: '';
+    left: 22px;
+    top: 45px;
+    position: absolute;
+}
+
+@keyframes checkmark {
+    0% { height:0; width:0; opacity:1; }
+    20% { height:0; width:20px; opacity:1; }
+    40% { height:40px; width:20px; opacity:1; }
+    100% { height:40px; width:20px; opacity:1; }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 30px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    .message {
+        font-size: 15px;
+    }
+
+    .sub-message {
+        font-size: 13px;
+    }
+
+    .menu-btn, .track-btn {
+        font-size: 15px;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 25px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .message {
+        font-size: 14px;
+    }
+
+    .sub-message {
+        font-size: 12px;
+    }
+
+    .menu-btn, .track-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .checkmark-circle {
+        width: 60px;
+        height: 60px;
+    }
+
+    .background {
+        width: 60px;
+        height: 60px;
+    }
+
+    .checkmark:after {
+        left: 17px;
+        top: 33px;
+        border-right: 5px solid white;
+        border-top: 5px solid white;
+        height: 30px;
+        width: 15px;
+    }
+}

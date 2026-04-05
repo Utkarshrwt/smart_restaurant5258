@@ -1,0 +1,149 @@
+/* Base styles */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #fff5ee, #ffe8d6);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    width: 360px;
+    max-width: 95%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.subtitle {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+#totalAmount {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ff6b00;
+    margin-bottom: 20px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 5px;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    background: #eee;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+.tab.active {
+    background: #ff6b00;
+    color: white;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.row input {
+    flex: 1;
+}
+
+.pay-btn {
+    margin-top: 10px;
+    width: 100%;
+    padding: 14px;
+    background: #ff6b00;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.pay-btn:disabled {
+    background: #ffb580;
+    cursor: not-allowed;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 25px;
+        width: 90%;
+    }
+
+    #totalAmount {
+        font-size: 20px;
+    }
+
+    input {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .tab {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .pay-btn {
+        font-size: 15px;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    #totalAmount {
+        font-size: 18px;
+    }
+
+    input {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .tab {
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .pay-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
