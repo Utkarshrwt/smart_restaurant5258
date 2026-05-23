@@ -10,21 +10,18 @@ import {
 const container = document.getElementById("orderDetails");
 
 // =======================
-// GET CUSTOMER TABLE
+// GET TABLE
 // =======================
 const customer = JSON.parse(localStorage.getItem("customerDetails"));
 const table = customer?.table;
 
-console.log("Customer:", customer);
-console.log("Table:", table);
-
 if (!table) {
   container.innerHTML = "❌ No table found";
-  throw new Error("Table missing in localStorage");
+  throw new Error("Table missing");
 }
 
 // =======================
-// SIMPLE QUERY (SAFE)
+// QUERY (TABLE BASED)
 // =======================
 const q = query(
   collection(db, "orders"),
@@ -36,34 +33,37 @@ const q = query(
 // =======================
 onSnapshot(q, (snapshot) => {
 
-  console.log("Docs found:", snapshot.size);
-
   if (snapshot.empty) {
     container.innerHTML = "❌ No active order";
     return;
   }
 
-  let orders = [];
+  let activeOrders = [];
 
   snapshot.forEach(doc => {
-    const data = doc.data();
-    data.id = doc.id;
-    orders.push(data);
+    const order = doc.data();
+    order.id = doc.id;
+
+    // 🔥 IMPORTANT: IGNORE SERVED ORDERS
+    if (order.status !== "served") {
+      activeOrders.push(order);
+    }
   });
 
-  console.log("Orders:", orders);
-
   // =======================
-  // GET LATEST ORDER (MANUAL SORT)
+  // IF NO ACTIVE ORDERS
   // =======================
-  orders.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-
-  const order = orders[0]; // latest order
-
-  if (!order) {
-    container.innerHTML = "❌ No latest order found";
+  if (activeOrders.length === 0) {
+    container.innerHTML = "❌ No active order";
     return;
   }
+
+  // =======================
+  // GET LATEST ACTIVE ORDER
+  // =======================
+  activeOrders.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+  const order = activeOrders[0];
 
   let html = `<div class="order">`;
 
@@ -96,11 +96,6 @@ onSnapshot(q, (snapshot) => {
       className = "status-completed";
       break;
 
-    case "served":
-      message = "✅ order Served. Enjoy your meal!";
-      className = "status-completed";
-      break;
-
     default:
       message = "⏳ Processing...";
       className = "status-preparing";
@@ -112,7 +107,6 @@ onSnapshot(q, (snapshot) => {
   // TIMER
   // =======================
   if (
-    order.status !== "served" &&
     order.status !== "completed" &&
     order.timestamp &&
     order.eta
@@ -128,7 +122,6 @@ onSnapshot(q, (snapshot) => {
   // START TIMER
   // =======================
   if (
-    order.status !== "served" &&
     order.status !== "completed" &&
     order.timestamp &&
     order.eta
