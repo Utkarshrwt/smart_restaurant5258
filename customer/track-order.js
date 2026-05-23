@@ -1,4 +1,4 @@
-import { db } from "../admin%20dashboard/firebase/firebase.js";
+import { db } from "../admin dashboard/firebase/firebase.js";
 
 import {
   collection,
@@ -10,18 +10,21 @@ import {
 const container = document.getElementById("orderDetails");
 
 // =======================
-// GET TABLE
+// GET CUSTOMER TABLE
 // =======================
 const customer = JSON.parse(localStorage.getItem("customerDetails"));
 const table = customer?.table;
 
+console.log("Customer:", customer);
+console.log("Table:", table);
+
 if (!table) {
   container.innerHTML = "❌ No table found";
-  throw new Error("Table missing");
+  throw new Error("Table missing in localStorage");
 }
 
 // =======================
-// QUERY
+// SIMPLE QUERY (SAFE)
 // =======================
 const q = query(
   collection(db, "orders"),
@@ -33,85 +36,105 @@ const q = query(
 // =======================
 onSnapshot(q, (snapshot) => {
 
+  console.log("Docs found:", snapshot.size);
+
   if (snapshot.empty) {
-    container.innerHTML = "❌ No orders found";
+    container.innerHTML = "❌ No active order";
     return;
   }
 
-  let html = "";
+  let orders = [];
 
   snapshot.forEach(doc => {
-
-    const order = doc.data();
-
-    html += `
-      <div style="border-bottom:1px solid #ccc; margin-bottom:15px; padding-bottom:10px;">
-    `;
-
-    // =======================
-    // ITEMS
-    // =======================
-    order.items.forEach(item => {
-      html += `<p>${item.name} (x${item.quantity})</p>`;
-    });
-
-    // =======================
-    // STATUS MESSAGE
-    // =======================
-    let message = "";
-    let className = "";
-
-    if (order.status === "new") {
-      message = "🆕 Order placed";
-      className = "status-new";
-    }
-    else if (order.status === "preparing") {
-      message = "👨‍🍳 Preparing your food";
-      className = "status-preparing";
-    }
-    else if (order.status === "completed") {
-      message = "🍽️ Time to serve!";
-      className = "status-completed";
-    }
-    else if (order.status === "served") {
-      message = "✅ Served. Enjoy your meal!";
-      className = "status-completed";
-    }
-
-    html += `<p class="${className}">${message}</p>`;
-
-    // =======================
-    // TIMER / FINAL MESSAGE
-    // =======================
-    if (order.status === "completed") {
-      html += `<p>🍽️ Ready for serving</p>`;
-    }
-    else if (order.status === "served") {
-      html += `<p>🎉 Order delivered</p>`;
-    }
-    else if (order.timestamp && order.eta) {
-      html += `<p id="timer-${doc.id}">⏳ Loading timer...</p>`;
-    }
-
-    html += `</div>`;
-
-    // =======================
-    // START TIMER
-    // =======================
-    if (
-      order.status !== "completed" &&
-      order.status !== "served" &&
-      order.timestamp &&
-      order.eta
-    ) {
-      setTimeout(() => {
-        startTimer(order.timestamp, order.eta, doc.id);
-      }, 100);
-    }
-
+    const data = doc.data();
+    data.id = doc.id;
+    orders.push(data);
   });
 
+  console.log("Orders:", orders);
+
+  // =======================
+  // GET LATEST ORDER (MANUAL SORT)
+  // =======================
+  orders.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+  const order = orders[0]; // latest order
+
+  if (!order) {
+    container.innerHTML = "❌ No latest order found";
+    return;
+  }
+
+  let html = `<div class="order">`;
+
+  // =======================
+  // ITEMS
+  // =======================
+  order.items?.forEach(item => {
+    html += `<p class="item">${item.name} (x${item.quantity})</p>`;
+  });
+
+  // =======================
+  // STATUS
+  // =======================
+  let message = "";
+  let className = "";
+
+  switch (order.status) {
+    case "new":
+      message = "🆕 Order placed";
+      className = "status-new";
+      break;
+
+    case "preparing":
+      message = "👨‍🍳 Preparing your food";
+      className = "status-preparing";
+      break;
+
+    case "completed":
+      message = "🍽️ Ready for serving";
+      className = "status-completed";
+      break;
+
+    case "served":
+      message = "✅ Served. Enjoy your meal!";
+      className = "status-completed";
+      break;
+
+    default:
+      message = "⏳ Processing...";
+      className = "status-preparing";
+  }
+
+  html += `<p class="status ${className}">${message}</p>`;
+
+  // =======================
+  // TIMER
+  // =======================
+  if (
+    order.status !== "served" &&
+    order.status !== "completed" &&
+    order.timestamp &&
+    order.eta
+  ) {
+    html += `<p id="timer-${order.id}" class="timer">⏳ Loading timer...</p>`;
+  }
+
+  html += `</div>`;
+
   container.innerHTML = html;
+
+  // =======================
+  // START TIMER
+  // =======================
+  if (
+    order.status !== "served" &&
+    order.status !== "completed" &&
+    order.timestamp &&
+    order.eta
+  ) {
+    startTimer(order.timestamp, order.eta, order.id);
+  }
 
 });
 
@@ -124,22 +147,22 @@ function startTimer(timestamp, eta, id) {
   const el = document.getElementById("timer-" + id);
   if (!el) return;
 
-  const end = timestamp + (eta * 60 * 1000);
+  const endTime = timestamp + (eta * 60 * 1000);
 
   const interval = setInterval(() => {
 
-    const diff = end - Date.now();
+    const remaining = endTime - Date.now();
 
-    if (diff <= 0) {
+    if (remaining <= 0) {
       el.innerHTML = "🍽️ Ready";
       clearInterval(interval);
       return;
     }
 
-    const min = Math.floor(diff / 60000);
-    const sec = Math.floor((diff % 60000) / 1000);
+    const minutes = Math.floor(remaining / 60000);
+    const seconds = Math.floor((remaining % 60000) / 1000);
 
-    el.innerHTML = `ETA: ${min}m ${sec}s`;
+    el.innerHTML = `ETA: ${minutes}m ${seconds}s`;
 
   }, 1000);
 }
