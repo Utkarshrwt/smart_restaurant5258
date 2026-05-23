@@ -97,7 +97,7 @@ onSnapshot(q, (snapshot) => {
       break;
 
     case "served":
-      message = "✅ Served. Enjoy your meal!";
+      message = "✅ order Served. Enjoy your meal!";
       className = "status-completed";
       break;
 
