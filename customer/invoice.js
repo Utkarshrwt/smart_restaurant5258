@@ -98,7 +98,7 @@ document.getElementById("invoiceItems").innerHTML = html;
 
 // price calculations
 
-let gst = total * 0.05;
+let gst = total * 0.02;
 let grandTotal = total + gst;
 
 document.getElementById("subtotal").innerText = "₹" + total.toFixed(2);
